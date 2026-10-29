@@ -1,0 +1,70 @@
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+
+import msxpo.AppKeywords as AppKeywords
+import msxpo.Selectors as Selectors
+
+/**
+ * TC_05 — Create Event wizard, Step 4 "Floor Plan" (data-driven from FloorPlan.csv).
+ * Verified spec (create-event-test-case-report): 1 hall (243×129 m, Perimeter arrangement),
+ * 30 booths = 10 basic / 10 standard / 10 premium, EVERY booth price 50,
+ * 5 banners price 50, 5 decorations, validation clean (0 overlaps, 0 missing prices).
+ * "platinum" in the request maps to the UI's Premium tier — no Platinum exists.
+ *
+ * Known findings worked around here:
+ *  - F2 (High): banners/decorations spawn stacked at (2,2) with empty price -> we set
+ *    X/Y/Price immediately after each spawn.
+ *  - F3 (Medium): validation counter/toasts are stale -> we trust only the post-check state.
+ *  - F4 (Medium): Undo can wipe the whole hall -> Undo is never used.
+ *  - F6 (Low): coords snap to the 3 m grid silently -> all coordinates are multiples of 3.
+ */
+def fp = AppKeywords.readRow('FloorPlan', 1)
+
+'Still on Step 4 after TC_04'
+WebUI.verifyElementVisible(Selectors.blankTemplateCustomise(), 15)
+
+"Customise: ${fp.Halls} hall, ${fp.Arrangement}, tiers basic/${fp.BasicCount} standard/${fp.StdCount} premium/${fp.PremCount} all @${fp.BasicPrice}"
+AppKeywords.configureCustomise(
+	fp.Halls as int, fp.Arrangement,
+	fp.BasicCount as int, fp.BasicPrice as int, fp.BasicW as int, fp.BasicH as int,
+	fp.StdCount as int, fp.StdPrice as int, fp.StdW as int, fp.StdH as int,
+	fp.PremCount as int, fp.PremPrice as int, fp.PremW as int, fp.PremH as int)
+
+'Editor opened with auto-generated hall + booths on the canvas (Konva — no DOM nodes)'
+WebUI.verifyElementVisible(Selectors.editorAddBooth(), 10)
+WebUI.verifyElementVisible(Selectors.canvas(), 10)
+
+/*
+ * Assets: 5 banners + 5 decorations, placed in the OPEN CENTER of the Perimeter layout.
+ * The customise step auto-generates the 30 booths along the walls; the center stays free.
+ * Coordinates: multiples of 3 (grid snap), well inside the 243x129 m hall, mutually spaced
+ * so the validator sees 0 overlaps (F2 spawns everything stacked — we move each immediately).
+ */
+int bannerPrice = fp.BannerPrice as int
+int nBanners = fp.Banners as int
+int nDecor = fp.Decorations as int
+
+List banners = [[45, 30], [90, 30], [135, 30], [180, 30], [45, 66]]
+List decorations = [[90, 66], [135, 66], [180, 66], [45, 99], [90, 99]]
+
+assert banners.size() >= nBanners : "FloorPlan.csv asks for ${nBanners} banners but only ${banners.size()} positions are defined"
+assert decorations.size() >= nDecor : "FloorPlan.csv asks for ${nDecor} decorations but only ${decorations.size()} positions are defined"
+
+"Add ${nBanners} banners at price ${bannerPrice}, repositioned immediately after each spawn [F2]"
+for (int i = 0; i < nBanners; i++) {
+	def pos = banners[i]
+	AppKeywords.addBannerAt(pos[0] as int, pos[1] as int, bannerPrice)
+}
+
+"Add ${nDecor} decorations (no price field — reposition immediately after spawn) [F2]"
+for (int i = 0; i < nDecor; i++) {
+	def pos = decorations[i]
+	AppKeywords.addDecorationAt(pos[0] as int, pos[1] as int)
+}
+
+'Validate + save configuration — trust only the post-save state [F3]; no Undo ever [F4]'
+AppKeywords.validateAndSaveConfiguration()
+
+'Layout ready — continue to Step 5 (Review & Create)'
+AppKeywords.continueWizard()
+WebUI.verifyElementVisible(Selectors.saveAsDraftButton(), 15)
+WebUI.verifyMatch(WebUI.getPageText(), '.*Review.*', true)

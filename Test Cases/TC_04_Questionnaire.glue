@@ -1,0 +1,40 @@
+import com.kms.katalon.core.model.FailureHandling
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+
+import msxpo.AppKeywords as AppKeywords
+import msxpo.Selectors as Selectors
+
+/**
+ * TC_04 — Create Event wizard, Step 3 "Visitor Questionnaire" (data-driven from Questionnaire.csv).
+ * Verified spec: title "Test Questionnaire", questionnaire enabled AND required,
+ * Q1 Text required, Q2 Media required.
+ * Known limitation (flow-report F5): only Text and Media question types exist;
+ * Review step does NOT show the questionnaire (F3) — verified here instead.
+ */
+def row = AppKeywords.readRow('Questionnaire', 1)
+
+'Questionnaire toggle is OFF by default (flow-report F5 — no hint it reveals the builder)'
+WebUI.verifyElementVisible(Selectors.questionnaireSwitch(), 5)
+AppKeywords.enableQuestionnaire()
+
+'Questionnaire title + description'
+WebUI.setText(Selectors.questionnaireTitleInput(), row.Title)
+if (row.Description) {
+	WebUI.setText(Selectors.questionnaireDescTextarea(), row.Description)
+}
+
+'Questionnaire itself must be REQUIRED (test-case spec: enabled AND required)'
+AppKeywords.ensureSwitchOn(Selectors.questionnaireSwitch(), 'Questionnaire required')
+
+"Q1: '${row.Q1Text}' type=${row.Q1Type} required=${row.Q1Required}"
+AppKeywords.addQuestion(1, row.Q1Text, row.Q1Type, row.Q1Placeholder, row.Q1Required.toBoolean())
+
+"Q2: '${row.Q2Text}' type=${row.Q2Type} required=${row.Q2Required}"
+AppKeywords.addQuestion(2, row.Q2Text, row.Q2Type, row.Q2Placeholder, row.Q2Required.toBoolean())
+
+'Exactly two questions on the page (the third slot must not exist)'
+WebUI.verifyElementNotPresent(Selectors.questionTextInput(3), 3, FailureHandling.CONTINUE_ON_FAILURE)
+
+'Continue to Step 4 (Floor Plan)'
+AppKeywords.continueWizard()
+WebUI.verifyElementVisible(Selectors.blankTemplateCustomise(), 15)

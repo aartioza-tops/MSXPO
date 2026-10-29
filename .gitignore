@@ -1,0 +1,14 @@
+# Katalon Studio — generated / local-only files
+Reports/
+Cache/
+Logs/
+build/
+bin/
+.settings/
+.classpath
+.project
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,59 @@
+import java.time.LocalDate
+
+import com.kms.katalon.core.model.FailureHandling
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+
+import msxpo.AppKeywords as AppKeywords
+import msxpo.Config as Config
+import msxpo.Selectors as Selectors
+
+/**
+ * TC_02 — Create Event wizard, Step 1 "Event Basics" (data-driven from EventData.csv).
+ * Verified spec (create-event-test-case-report): name "test 1.0", Trade Show, 2026-11-01
+ * single-day, Asia/Kolkata, given media file, 37-line description, Featured + all 4 stats ON,
+ * industry Technology.
+ * Findings referenced: F1 (visibility toggles silently lost — re-verified at Review),
+ * F8 (media upload via hidden file input works; draft autosave persists).
+ */
+def row = AppKeywords.readRow('EventData', 1)
+String eventName = row.Name
+
+'Open the create-event wizard'
+AppKeywords.openCreateEventWizard()
+
+'Event name'
+WebUI.setText(Selectors.nameInput(), eventName)
+
+'Event type — native <select> is a shim, must drive the visible dropdown (live-verified)'
+AppKeywords.selectDropdownByLabel(Selectors.eventTypeTrigger(), row.EventType)
+
+'Start date = end date (single-day event; end auto-fills 23:59 — F8)'
+LocalDate eventDate = LocalDate.parse(row.StartDate)
+AppKeywords.pickDate(Selectors.startDateTrigger(), eventDate)
+AppKeywords.pickDate(Selectors.endDateTrigger(), eventDate)
+
+'Timezone shows Asia/Kolkata by default — verify only'
+WebUI.verifyMatch(WebUI.getText(Selectors.timezoneTrigger()), '.*Asia/Kolkata.*', true)
+
+'Event media upload (hidden input[type=file])'
+AppKeywords.uploadEventMedia(Config.mediaFile())
+
+'Description — read the 37-line text file'
+String description = new File('Test Data/description.txt').getText('UTF-8')
+WebUI.setText(Selectors.descTextarea(), description)
+int lineCount = WebUI.getAttribute(Selectors.descTextarea(), 'value').count('\n') + 1
+WebUI.verifyMatch(String.valueOf(lineCount), '37', true, FailureHandling.CONTINUE_ON_FAILURE) // soft: informational
+
+'Visibility: Featured switch + all four public-stats checkboxes [F1 — verify state immediately]'
+AppKeywords.ensureSwitchOn(Selectors.featuredSwitch(), 'Featured')
+AppKeywords.ensureCheckboxOn(Selectors.statCheckbox('Total visitors'), 'Total visitors')
+AppKeywords.ensureCheckboxOn(Selectors.statCheckbox('Halls count'), 'Halls count')
+AppKeywords.ensureCheckboxOn(Selectors.statCheckbox('Booths count'), 'Booths count')
+AppKeywords.ensureCheckboxOn(Selectors.statCheckbox('Participants count'), 'Participants count')
+
+'Industry = Technology (dropdown)'
+AppKeywords.selectDropdownByLabel(Selectors.industryTrigger(), row.Industry)
+
+'Continue to Step 2 (Event Admin)'
+AppKeywords.continueWizard()
+WebUI.verifyElementVisible(Selectors.addAdminButton(), 10)

@@ -1,0 +1,19 @@
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+
+import msxpo.AppKeywords as AppKeywords
+import msxpo.Config as Config
+import msxpo.Selectors as Selectors
+
+/**
+ * TC_01 — Login to MSxpo as Event Host super admin.
+ * Entry point for the create-event suite; verifies we stay past /login.
+ * Findings referenced: login-test-report F1 (API errors invisible — a failed login just
+ * hangs here, so the redirect wait IS the assertion), F4 (duplicate POST per click),
+ * F5 (intermittent bounce back to /login — re-checked right after landing).
+ */
+'Open the login page and sign in'
+AppKeywords.login(Config.adminEmail(), Config.adminPassword())
+
+'Verify we are on the dashboard, not bounced back to /login (login-test-report F5)'
+WebUI.verifyMatch(WebUI.getUrl(), '.*app\\.msxpo\\.sa/?$', true)
+WebUI.verifyElementVisible(Selectors.xp("//a[contains(.,'Events') or contains(.,'Dashboard')][1]"), 10)

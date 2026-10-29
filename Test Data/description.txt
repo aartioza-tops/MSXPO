@@ -1,0 +1,37 @@
+Welcome to test 1.0, a one-day trade show designed to test the MSxpo event platform end to end.
+
+This event is used by the QA team to validate the complete event creation workflow.
+It covers event basics, media upload, admin assignment, visitor questionnaires and floor planning.
+The event takes place on a single day, November 1st 2026, in the Asia/Kolkata timezone.
+
+Exhibitors will showcase products across technology, manufacturing and retail segments.
+Visitors can browse halls, compare booths and request meetings with participants.
+A short visitor questionnaire collects basic details before interactions begin.
+
+Theme
+The theme of this year's edition is practical digital transformation for growing businesses.
+Sessions focus on cloud platforms, retail automation and data-driven operations.
+
+Programme
+Doors open in the morning with an opening address from the organising committee.
+Product demonstrations run through the day across all exhibition halls.
+A closing panel summarises key takeaways for exhibitors and visitors.
+
+Venue
+The floor plan contains a single hall arranged with booths along the perimeter.
+The centre of the hall stays open for networking areas, banners and decorations.
+
+Participation
+Exhibitors are assigned booths by the event administrators before the doors open.
+Visitors register online and complete the questionnaire during check-in.
+
+Notes for testers
+This event is created by an automated QA run and may be deleted at any time.
+Do not use it for real registrations or real exhibitor data.
+The description intentionally spans many lines to test text preservation.
+Line breaks, punctuation and mixed casing are kept exactly as entered.
+
+Contact
+For questions about this test event, contact the QA team on the internal channel.
+
+End of description.

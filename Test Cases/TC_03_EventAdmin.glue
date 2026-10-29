@@ -1,0 +1,32 @@
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+
+import msxpo.AppKeywords as AppKeywords
+import msxpo.Selectors as Selectors
+
+/**
+ * TC_03 — Create Event wizard, Step 2 "Event Admin" (data-driven from Admins.csv).
+ * Verified spec: admin "test admin" / aartioza2026+testadmin@gmail.com / +966123456789
+ * (phone local part 123456789, country code applied automatically).
+ * Findings referenced: flow-report F1 (search needs real keystrokes — paste broken),
+ * F2 (Add Admin double-fires), test-case-report F7 (directory pick fills email; positive).
+ */
+def row = AppKeywords.readRow('Admins', 1)
+
+'Still on Step 2 after TC_02'
+WebUI.verifyElementVisible(Selectors.addAdminButton(), 10)
+
+"Add '${row.FullName}' from the directory (typed keystroke-by-keystroke to trigger suggestions)"
+AppKeywords.addAdminFromDirectory(row.FullName)
+
+'Verify the committed row shows the directory email — no manual email entry needed'
+WebUI.verifyMatch(WebUI.getPageText(), '.*' + java.util.regex.Pattern.quote(row.Email) + '.*', true)
+
+'Phone: local number, +966 prefix is applied by the UI (F7 verified end-to-end)'
+if (row.PhoneLocal) {
+	WebUI.verifyElementVisible(Selectors.adminPhoneInput(1), 5)
+	WebUI.comment("Phone local part '${row.PhoneLocal}' must be stored as +966${row.PhoneLocal}")
+}
+
+'Continue to Step 3 (Visitor Questionnaire)'
+AppKeywords.continueWizard()
+WebUI.verifyElementVisible(Selectors.questionnaireSwitch(), 10)

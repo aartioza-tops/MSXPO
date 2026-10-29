@@ -1,0 +1,2 @@
+,Title,Description,IsRequired,Q1Text,Q1Type,Q1Required,Q1Placeholder,Q2Text,Q2Type,Q2Required,Q2Placeholder
+,1,Test Questionnaire,"Share a few details before you explore the expo.",true,What is your company name?,Text,true,e.g. ACME Corp,Upload a photo of your badge,Media,true,

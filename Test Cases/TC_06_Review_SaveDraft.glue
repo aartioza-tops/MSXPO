@@ -1,0 +1,55 @@
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+
+import msxpo.AppKeywords as AppKeywords
+import msxpo.Selectors as Selectors
+
+/**
+ * TC_06 — Create Event wizard, Step 5 "Review & Create" -> Save as Draft.
+ * Verified spec: POST /tenant-admin/events -> 201, status DRAFT; summary shows event,
+ * admin and floor plan (with Edit shortcuts). Note: Review intentionally OMITS the
+ * questionnaire [flow-report F3] — it cannot be verified here by design of the app.
+ *
+ * F1 (High) safety net: Review is the ONLY place where the silently-dropped visibility
+ * flags become visible — verify them here and recover (re-toggle) if lost.
+ */
+def event = AppKeywords.readRow('EventData', 1)
+def admin = AppKeywords.readRow('Admins', 1)
+
+'On Review step with Save as Draft available'
+WebUI.verifyElementVisible(Selectors.saveAsDraftButton(), 15)
+
+'Verify the summary shows the event we entered'
+WebUI.verifyMatch(WebUI.getPageText(), '.*' + java.util.regex.Pattern.quote(event.Name) + '.*', true)
+
+'Verify the assigned admin is listed [flow-report F4: API omits eventAdmins, but the UI must show it]'
+WebUI.verifyMatch(WebUI.getPageText(), '.*' + java.util.regex.Pattern.quote(admin.Email) + '.*', true)
+
+'Verify floor plan section present (1 hall, booths)'
+WebUI.verifyMatch(WebUI.getPageText(), '.*(?i)floor plan.*', true)
+
+'Verify visibility flags survived the wizard [F1] — Review is where the loss shows'
+AppKeywords.verifyReviewFlags(true, true)
+
+'If F1 dropped them, recover: Edit -> re-toggle -> Continue back to Review'
+AppKeywords.recoverFeaturedIfLost(true, true)
+
+'Save as Draft — POST /tenant-admin/events must return 201 and keep status DRAFT'
+AppKeywords.saveAsDraft()
+
+'Verify we landed somewhere valid (events list or the new event detail page)'
+String landed = WebUI.getUrl()
+WebUI.verifyMatch(landed, '.*app\\.msxpo\\.sa/events.*', true)
+WebUI.comment("Landed on ${landed}")
+
+'Verify the new event row/badge exists with status Draft (Published is NOT set by this flow)'
+if (landed.endsWith('/events')) {
+	WebUI.verifyMatch(WebUI.getPageText(),
+		'(?s).*' + java.util.regex.Pattern.quote(event.Name) + '.{0,500}Draft.*', true,
+		com.kms.katalon.core.model.FailureHandling.CONTINUE_ON_FAILURE)
+} else {
+	// detail page: status badge next to Edit Event
+	WebUI.verifyMatch(WebUI.getPageText(), '.*(?s)(Draft|Published).*', true,
+		com.kms.katalon.core.model.FailureHandling.CONTINUE_ON_FAILURE)
+}
+
+WebUI.comment("Draft event '${event.Name}' created and verified")

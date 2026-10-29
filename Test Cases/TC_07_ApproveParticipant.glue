@@ -1,0 +1,35 @@
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+
+import msxpo.AppKeywords as AppKeywords
+import msxpo.Config as Config
+import msxpo.Selectors as Selectors
+
+/**
+ * TC_07 — Manage Participant -> Approve Participant (data-driven from Participants.csv).
+ * Clicks the Approve button of exactly ONE participant: the name in Participants.csv (column Name).
+ * The locator is anchored on that exact name and scoped to its row, so no other pending
+ * participant on the list is ever approved.
+ *
+ * Standalone test case (own login) — deliberately NOT part of TS_CreateEvent_Flow, which drives
+ * the create-event wizard in one shared browser session.
+ *
+ * Precondition: the named participant must be PENDING on the Approve Participant list.
+ * The list may be event-scoped — select the right event in the UI filter before running,
+ * and put the exact displayed name into Test Data/Participants.csv.
+ */
+def row = AppKeywords.readRow('Participants', 1)
+String participantName = row.Name
+
+'Login as Event Host super admin (standalone run)'
+AppKeywords.login(Config.adminEmail(), Config.adminPassword())
+
+'Open Manage Participant -> Approve Participant'
+AppKeywords.openApproveParticipants()
+
+"The approve list shows '${participantName}'"
+WebUI.verifyElementVisible(Selectors.participantNameCell(participantName), 15)
+
+'Click ONLY the Approve button of the given name (row-scoped — other rows stay untouched)'
+AppKeywords.approveParticipantByName(participantName)
+
+WebUI.comment("Approve Participant finished for '${participantName}'")
