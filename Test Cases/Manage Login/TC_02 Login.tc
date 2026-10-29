@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>TC_02 Login</name>
+   <tag></tag>
+   <integratedEntity>
+      <productName>TESTOPS</productName>
+      <properties>
+         <entry>
+            <key>createdByName</key>
+            <value>aarti oza</value>
+         </entry>
+         <entry>
+            <key>lastModifiedByName</key>
+            <value>aarti oza</value>
+         </entry>
+         <entry>
+            <key>createdByUuid</key>
+            <value>82612376-c75e-48a3-a197-328bc5282f3a</value>
+         </entry>
+         <entry>
+            <key>lastModifiedByUuid</key>
+            <value>82612376-c75e-48a3-a197-328bc5282f3a</value>
+         </entry>
+      </properties>
+      <type>TESTCASE</type>
+   </integratedEntity>
+   <comment></comment>
+   <recordOption>OTHER</recordOption>
+   <testCaseGuid>a2e8e9e4-bdb7-42cc-a8f5-b2c044c37691</testCaseGuid>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>f81c78f0-5208-4a5a-8c2d-01f54b28e8fd</variableId>
+   </variableLinks>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>077f95cd-103a-4e83-a4d1-db6507e3e726</variableId>
+   </variableLinks>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>89bf526e-c871-42de-9c9f-834088fe32cf</variableId>
+   </variableLinks>
+   <variable>
+      <defaultValue>''</defaultValue>
+      <description></description>
+      <id>f81c78f0-5208-4a5a-8c2d-01f54b28e8fd</id>
+      <masked>false</masked>
+      <name>email_address</name>
+   </variable>
+   <variable>
+      <defaultValue>''</defaultValue>
+      <description></description>
+      <id>077f95cd-103a-4e83-a4d1-db6507e3e726</id>
+      <masked>false</masked>
+      <name>password</name>
+   </variable>
+   <variable>
+      <defaultValue>''</defaultValue>
+      <description></description>
+      <id>89bf526e-c871-42de-9c9f-834088fe32cf</id>
+      <masked>false</masked>
+      <name>role</name>
+   </variable>
+</TestCaseEntity>

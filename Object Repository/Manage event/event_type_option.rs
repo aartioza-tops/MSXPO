@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebElementEntity>
+   <description></description>
+   <name>event_type_option</name>
+   <tag></tag>
+   <elementGuid>d39fbc31-1ab1-459d-a6b2-e69593ddc8a1</elementGuid>
+   <selectorCollection>
+      <entry>
+         <key>XPATH</key>
+         <value>//div[@role='option'][normalize-space()='${event_type}']</value>
+      </entry>
+      <entry>
+         <key>BASIC</key>
+         <value></value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>XPATH</selectorMethod>
+   <smartLocatorEnabled>false</smartLocatorEnabled>
+   <isVisible>false</isVisible>
+</WebElementEntity>

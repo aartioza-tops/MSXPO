@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebElementEntity>
+   <description></description>
+   <name>button_Continue_2</name>
+   <tag></tag>
+   <elementGuidId>6d0f8edf-e123-49b7-9334-b553b4f58507</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>CSS</key>
+         <value>button.text-primary-foreground.whitespace-nowrap.ring-offset-background.\[\&amp;_svg\]\:pointer-events-none.inline-flex.transition-colors.rounded-lg</value>
+      </entry>
+      <entry>
+         <key>XPATH</key>
+         <value>//button[@class and contains(concat(' ', normalize-space(@class), ' '), ' text-primary-foreground ') and contains(concat(' ', normalize-space(@class), ' '), ' whitespace-nowrap ') and contains(concat(' ', normalize-space(@class), ' '), ' ring-offset-background ') and contains(concat(' ', normalize-space(@class), ' '), ' [&amp;_svg]:pointer-events-none ') and contains(concat(' ', normalize-space(@class), ' '), ' inline-flex ') and contains(concat(' ', normalize-space(@class), ' '), ' transition-colors ') and contains(concat(' ', normalize-space(@class), ' '), ' rounded-lg ')]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>XPATH</selectorMethod>
+   <smartLocatorCollection>
+      <entry>
+         <key>SMART_LOCATOR</key>
+         <value>internal:role=button[name=&quot;Continue&quot;i]</value>
+      </entry>
+   </smartLocatorCollection>
+   <smartLocatorEnabled>false</smartLocatorEnabled>
+   <useRalativeImagePath>true</useRalativeImagePath>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>tag</name>
+      <type>Main</type>
+      <value>button</value>
+      <webElementGuid>41ecccad-2ae9-4d5d-b56e-9da4a3dddc16</webElementGuid>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>class</name>
+      <type>Main</type>
+      <value>inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 text-primary-foreground h-10 px-4 py-2 w-full min-w-[120px] rounded-lg bg-[#0091EA] text-sm hover:bg-[#0071B8] sm:w-auto</value>
+      <webElementGuid>b2cf53d3-d4a0-47fb-a368-2d92fe156e57</webElementGuid>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>type</name>
+      <type>Main</type>
+      <value>button</value>
+      <webElementGuid>1e631f46-d487-45f5-adc4-2369dc67610c</webElementGuid>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>text</name>
+      <type>Main</type>
+      <value>Continue</value>
+      <webElementGuid>bdedf04e-7e7a-4d74-bb5b-04e6feafc08d</webElementGuid>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>parent</name>
+      <type>Main</type>
+      <value>md5.v1-6186af87c5f5c5fb9c7819bec1b6c922</value>
+      <webElementGuid>1bbd23b8-3671-40ab-9f8b-42248136d8a0</webElementGuid>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
+      <type>Main</type>
+      <value>//button[@class and contains(concat(' ', normalize-space(@class), ' '), ' text-primary-foreground ') and contains(concat(' ', normalize-space(@class), ' '), ' whitespace-nowrap ') and contains(concat(' ', normalize-space(@class), ' '), ' ring-offset-background ') and contains(concat(' ', normalize-space(@class), ' '), ' [&amp;_svg]:pointer-events-none ') and contains(concat(' ', normalize-space(@class), ' '), ' inline-flex ') and contains(concat(' ', normalize-space(@class), ' '), ' transition-colors ') and contains(concat(' ', normalize-space(@class), ' '), ' rounded-lg ')]</value>
+      <webElementGuid>e8794f7e-600e-4551-9c9e-3ee57ea94d6d</webElementGuid>
+   </webElementProperties>
+   <webElementXpaths>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath:attributes</name>
+      <type>Main</type>
+      <value>//button[@class and contains(concat(' ', normalize-space(@class), ' '), ' text-primary-foreground ') and contains(concat(' ', normalize-space(@class), ' '), ' whitespace-nowrap ') and contains(concat(' ', normalize-space(@class), ' '), ' ring-offset-background ') and contains(concat(' ', normalize-space(@class), ' '), ' [&amp;_svg]:pointer-events-none ') and contains(concat(' ', normalize-space(@class), ' '), ' inline-flex ') and contains(concat(' ', normalize-space(@class), ' '), ' transition-colors ') and contains(concat(' ', normalize-space(@class), ' '), ' rounded-lg ')]</value>
+      <webElementGuid>712d3b12-37ca-4254-949b-93134cd4fc26</webElementGuid>
+   </webElementXpaths>
+   <webElementXpaths>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath:customAttributes</name>
+      <type>Main</type>
+      <value>//button[@type = 'button' and (text() = 'Continue' or . = 'Continue')]</value>
+      <webElementGuid>527fafd2-d188-4a66-a1ed-7bd199ab5a47</webElementGuid>
+   </webElementXpaths>
+</WebElementEntity>
